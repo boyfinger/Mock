@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard Quản lý Sản phẩm và Danh mục</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            .sidebar {
+                height: 100vh;
+                background-color: #343a40;
+                color: #fff;
+                padding-top: 20px;
+            }
+            .sidebar a {
+                color: #adb5bd;
+                text-decoration: none;
+                display: block;
+                padding: 10px 20px;
+                margin-bottom: 10px;
+            }
+            .sidebar a.active, .sidebar a:hover {
+                color: #fff;
+                background-color: #495057;
+                border-radius: 5px;
+            }
+            .content {
+                padding: 20px;
+            }
+            .product-img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-md-3 col-lg-2 sidebar">
+                    <h2 class="text-center">Dashboard</h2>
+                    <a th:href="@{/product/list}" class="active">Quản lý Sản phẩm</a>
+                    <a th:href="@{/category/list}">Quản lý Danh mục</a>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-md-9 col-lg-10 content">
+                    <h1>Quản lý Sản phẩm và Danh mục</h1>
+
+                    <!-- Nút Thêm Mới -->
+                    <div class="d-flex justify-content-end mb-3">
+                        <a th:href="@{/product/create}" class="btn btn-primary">Thêm mới</a>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="row my-4">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="card text-white bg-primary">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sản phẩm</h5>
+                                    <p class="card-text fs-4" th:text="${products.size()}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="card text-white bg-success">
+                                <div class="card-body">
+                                    <h5 class="card-title">Danh mục</h5>
+                                    <p class="card-text fs-4" th:text="${categories.size()}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Table -->
+                    <h2>Danh sách Sản phẩm</h2>
+
+                    <span class="text-alert text-success" th:text="${message}"></span>
+                    <span class="text-alert text-danger" th:text="${errorMessage}"></span>
+
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tên Sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>Ảnh</th>
+                                <th>Giá</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Sản phẩm A</td>
+                                <td>Danh mục X</td>
+                                <td><img src="https://via.placeholder.com/50" class="product-img" alt="Ảnh Sản phẩm"></td>
+                                <td>100,000 VND</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning">Sửa</button>
+                                    <button class="btn btn-sm btn-danger">Xóa</button>
+                                </td>
+                            </tr>
+                            <!-- Thêm các dòng sản phẩm khác -->
+                        </tbody>
+                    </table>
+
+
+
+                    <!-- Phân trang -->
+                    <nav aria-label="Page navigation example" >
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
