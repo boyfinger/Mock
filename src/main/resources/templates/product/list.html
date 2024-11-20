@@ -92,15 +92,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Sản phẩm A</td>
-                                <td>Danh mục X</td>
-                                <td><img src="https://via.placeholder.com/50" class="product-img" alt="Ảnh Sản phẩm"></td>
-                                <td>100,000 VND</td>
+                            <tr th:each="p: ${productPage.content}">
+                                <td th:text="${p.id}"></td>
+                                <td th:text="${p.name}"></td>
+                                <td th:text="${p.category.name}"></td>
+                                <td><img th:src="${p.image}" class="product-img" alt="Ảnh Sản phẩm"></td>
+                                <td th:text="'$' + ${p.price}"></td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning">Sửa</button>
-                                    <button class="btn btn-sm btn-danger">Xóa</button>
+                                    <a th:href="@{/product/edit/{id}(id=${p.id})}" class="btn btn-sm btn-warning">Sửa</a>
+                                    <a th:href="@{/product/delete/{id}(id=${p.id})}" class="btn btn-sm btn-danger">Xóa</a>
                                 </td>
                             </tr>
                             <!-- Thêm các dòng sản phẩm khác -->
@@ -112,16 +112,14 @@
                     <!-- Phân trang -->
                     <nav aria-label="Page navigation example" >
                         <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            <li class="page-item" th:classappend="${productPage.hasPrevious()} ? '' : 'disabled'">
+                                <a class="page-link" th:href="@{/product/list(page=${productPage.number - 1})}">Previous</a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">2</a>
+                            <li class="page-item" th:each="pageNumber : ${pageNumbers}" th:classappend="${pageNumber - 1} == ${productPage.number} ? ' active' : ''">
+                                <a class="page-link" th:href="@{/product/list(page=${pageNumber - 1})}" th:text="${pageNumber}"></a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
+                            <li class="page-item" th:classappend="${productPage.hasNext()} ? '' : 'disabled'">
+                                <a class="page-link" th:href="@{/product/list(page=${productPage.number + 1})}">Next</a>
                             </li>
                         </ul>
                     </nav>
